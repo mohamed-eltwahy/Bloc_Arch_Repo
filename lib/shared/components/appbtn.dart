@@ -25,7 +25,7 @@ class AppButton extends StatelessWidget {
     return InkWell(
       onTap: onTap as void Function()?,
       child: Container(
-        width: width ?? 100,
+        width: width ?? 150,
         height: hieght ?? 48,
         decoration: BoxDecoration(
           color: color??AppUI.maincolors ,

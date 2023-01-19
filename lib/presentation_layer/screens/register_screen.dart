@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_page.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/register_screen.dart';
+import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/login_screen.dart';
 
 import '../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../shared/appui.dart';
@@ -11,14 +11,14 @@ import '../../shared/components/appbtn.dart';
 import '../../shared/components/apptext.dart';
 import '../../shared/components/apptextfield.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,12 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         child: Form(
-                          key: authCubit.loginFormKey,
+                          key: authCubit.signUpFormKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               AppText(
-                                'login',
+                                'signUp',
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 hintText: 'email',
                                 textInputType: TextInputType.emailAddress,
-                                controller: authCubit.loginEmail,
+                                controller: authCubit.signUpEmail,
                                 // validateState: false,
                                 suffixWidget: const Icon(
                                   Icons.email_outlined,
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 },
                                 obscureText: authCubit.loginVisibality,
-                                controller: authCubit.loginPassword,
+                                controller: authCubit.signUpPassword,
                                 validateState: true,
                                 suffixIconOnTap:
                                     authCubit.loginChangeVisibility,
@@ -118,14 +118,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 100),
                                       child: AppButton(
-                                        'login',
+                                        'signUp',
                                         onTap: () async {
                                           if (authCubit
-                                              .loginFormKey.currentState!
+                                              .signUpFormKey.currentState!
                                               .validate()) {
                                             FocusScope.of(context).unfocus();
-                                           AppUtill.navigatToAndFinish(
+                                             AppUtill.navigatToAndFinish(
                                           context, const HomePage());
+
 
                                           }
                                         },
@@ -144,17 +145,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AppText(
-                                    "Don't have account ? ",
+                                    "have account ? ",
                                     color: Colors.white,
                                     fontSize: 16,
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       AppUtill.navigatToAndFinish(
-                                          context, const RegisterScreen());
+                                          context, const LoginScreen());
                                     },
                                     child: AppText(
-                                      'signUp',
+                                      'login',
                                       fontSize: 16,
                                       color: Colors.white,
                                     ),

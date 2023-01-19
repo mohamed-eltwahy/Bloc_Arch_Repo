@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../../shared/appui.dart';
+import '../welcome_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -14,18 +17,25 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Task',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          // scaffoldBackgroundColor: AppUI.maincolors,
-          primarySwatch: AppUI.secondColor,
-          timePickerTheme: TimePickerThemeData(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            hourMinuteShape: const CircleBorder(),
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: ((context) => LoginCubit()),
         ),
-        home: Container());
+      ],
+      child: MaterialApp(
+          title: 'Flutter Task',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            // scaffoldBackgroundColor: AppUI.maincolors,
+            primarySwatch: AppUI.secondColor,
+            timePickerTheme: TimePickerThemeData(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              hourMinuteShape: const CircleBorder(),
+            ),
+          ),
+          home: const WelcomeScreen()),
+    );
   }
 }

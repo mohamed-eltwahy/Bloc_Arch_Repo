@@ -13,6 +13,9 @@ class LoginCubit extends Cubit<LoginState> {
   final loginFormKey = GlobalKey<FormState>();
   final TextEditingController loginEmail = TextEditingController();
   final TextEditingController loginPassword = TextEditingController();
+  final signUpFormKey = GlobalKey<FormState>();
+  final TextEditingController signUpEmail = TextEditingController();
+  final TextEditingController signUpPassword = TextEditingController();
 
   void loginChangeVisibility() {
     loginVisibality = !loginVisibality;
