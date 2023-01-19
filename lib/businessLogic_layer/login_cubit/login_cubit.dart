@@ -9,7 +9,7 @@ class LoginCubit extends Cubit<LoginState> {
   static LoginCubit get(context) => BlocProvider.of(context);
   bool loginVisibality = true;
   IconData loginVisibilityIcon = Icons.visibility_off_outlined;
-
+ String? userName;
   final loginFormKey = GlobalKey<FormState>();
   final TextEditingController loginEmail = TextEditingController();
   final TextEditingController loginPassword = TextEditingController();

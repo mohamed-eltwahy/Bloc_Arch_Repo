@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -5,8 +8,10 @@ import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_p
 import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/register_screen.dart';
 
 import '../../businessLogic_layer/login_cubit/login_cubit.dart';
+import '../../data_layer/models/user_model.dart';
 import '../../shared/appui.dart';
 import '../../shared/apputil.dart';
+import '../../shared/cashHelper/cash_helper.dart';
 import '../../shared/components/appbtn.dart';
 import '../../shared/components/apptext.dart';
 import '../../shared/components/apptextfield.dart';
@@ -124,9 +129,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                               .loginFormKey.currentState!
                                               .validate()) {
                                             FocusScope.of(context).unfocus();
-                                           AppUtill.navigatToAndFinish(
-                                          context, const HomePage());
-
+                                            Map<String, dynamic> formData = {
+                                              "email":
+                                                  authCubit.loginEmail.text,
+                                              "password":
+                                                  authCubit.loginPassword.text,
+                                              "isLogined": true
+                                            };
+                                            await CashHelper.setJsonObject(
+                                                    "signUpdata",
+                                                    UserModel.fromJson(formData)
+                                                        .toJson())
+                                                .then((value) {
+                                              AppUtill.navigatToAndFinish(
+                                                  context, const HomePage());
+                                            });
                                           }
                                         },
                                         titleColor: Colors.white,
@@ -149,9 +166,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontSize: 16,
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      AppUtill.navigatToAndFinish(
-                                          context, const RegisterScreen());
+                                    onPressed: () async {
+                                      // UserModel.fromJson(json.decode(json.encode(UserModel(email:authCubit.loginEmail.text,password: authCubit.loginPassword.text,isLogined: true ).toJson())));
+
+                                      // await CashHelper.setJsonObject("signUpdata",jsonEncode(UserModel.fromJson(formData)));
+                                      // await  CashHelper.getJsonObject('signUpdata');
+                                      //     .then((value) {
+                                      //        CashHelper.getJsonObject('signUpdata');
+                                      //   // CashHelper.getSavedString("signUpdata", "");
+                                      //   // AppUtill.navigatToAndFinish(
+                                      //   //     context, const RegisterScreen());
+                                      // });
                                     },
                                     child: AppText(
                                       'signUp',
