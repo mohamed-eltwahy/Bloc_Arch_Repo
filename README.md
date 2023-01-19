@@ -1,0 +1,1 @@
+# Minapharm-Pharmaceuticals-task
