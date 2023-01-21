@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_page.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/register_screen.dart';
 
 import '../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../data_layer/models/user_model.dart';
@@ -129,18 +127,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                               .loginFormKey.currentState!
                                               .validate()) {
                                             FocusScope.of(context).unfocus();
-                                            Map<String, dynamic> formData = {
-                                              "email":
-                                                  authCubit.loginEmail.text,
-                                              "password":
-                                                  authCubit.loginPassword.text,
-                                              "isLogined": true
-                                            };
+
+                                            CashHelper.setSavedString(
+                                                authCubit.loginEmail.text,
+                                                'userName');
+                                            UserModel userModel = UserModel(
+                                                email:
+                                                    authCubit.loginEmail.text,
+                                                password: authCubit
+                                                    .loginPassword.text,
+                                                isLogined: true);
                                             await CashHelper.setJsonObject(
                                                     "signUpdata",
-                                                    UserModel.fromJson(formData)
-                                                        .toJson())
+                                                    userModel.toJson())
                                                 .then((value) {
+                                              authCubit.userList.add(userModel);
+                                              CashHelper
+                                                  .storeListInSharedPreferences(
+                                                      authCubit.userList);
                                               AppUtill.navigatToAndFinish(
                                                   context, const HomePage());
                                             });

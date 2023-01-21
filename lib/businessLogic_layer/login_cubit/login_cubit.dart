@@ -1,15 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../data_layer/models/user_model.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
   static LoginCubit get(context) => BlocProvider.of(context);
+
+  List<UserModel> userList = [];
   bool loginVisibality = true;
   IconData loginVisibilityIcon = Icons.visibility_off_outlined;
- String? userName;
+  String? userName;
   final loginFormKey = GlobalKey<FormState>();
   final TextEditingController loginEmail = TextEditingController();
   final TextEditingController loginPassword = TextEditingController();
@@ -24,6 +27,4 @@ class LoginCubit extends Cubit<LoginState> {
         : Icons.visibility_outlined;
     emit(LoginVisibilityChangeState());
   }
-
-
 }

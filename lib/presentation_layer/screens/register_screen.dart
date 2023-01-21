@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_page.dart';
 import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/login_screen.dart';
 
+import '../../businessLogic_layer/auth/auth_cubit.dart';
+import '../../businessLogic_layer/auth/auth_state.dart';
 import '../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../shared/appui.dart';
 import '../../shared/apputil.dart';
@@ -19,15 +23,27 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  //   @override
+  // void initState() {
+  //   super.initState();
+  //   _getUsers();
+  // }
+
+  // Future<void> _getUsers() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _users = prefs.getStringList('users') ?? [];
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-            child: BlocConsumer<LoginCubit, LoginState>(
+            child: BlocConsumer<AuthCubit, AuthState>(
           listener: (BuildContext context, Object? state) {},
           builder: (BuildContext context, state) {
-            var authCubit = LoginCubit.get(context);
+            var authCubit = AuthCubit.get(context);
             return Container(
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
@@ -102,12 +118,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     return null;
                                   }
                                 },
-                                obscureText: authCubit.loginVisibality,
+                                // obscureText: authCubit.signUpPassword,
                                 controller: authCubit.signUpPassword,
                                 validateState: true,
-                                suffixIconOnTap:
-                                    authCubit.loginChangeVisibility,
-                                suffixIcon: authCubit.loginVisibilityIcon,
+                                // suffixIconOnTap:
+                                //     authCubit.loginChangeVisibility,
+                                // suffixIcon: authCubit.loginVisibilityIcon,
                                 suffixColor: Colors.grey,
                               ),
                               const SizedBox(
@@ -124,10 +140,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               .signUpFormKey.currentState!
                                               .validate()) {
                                             FocusScope.of(context).unfocus();
-                                             AppUtill.navigatToAndFinish(
-                                          context, const HomePage());
-
-
+                                            await authCubit
+                                                .register(
+                                                    authCubit.signUpEmail.text,
+                                                    authCubit
+                                                        .signUpPassword.text,
+                                                    context)
+                                                .then((value) {
+                                              authCubit.loadString();
+                                            });
                                           }
                                         },
                                         titleColor: Colors.white,

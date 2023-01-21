@@ -3,11 +3,13 @@ import 'dart:developer';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../data_layer/models/user_model.dart';
+
 class CashHelper {
-  static Future<String> getSavedString(String value, defaultVal) async {
+  static Future<String?> getSavedString(String value, defaultVal) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String savedValue = prefs.getString(value) ?? defaultVal;
-    log('userData ${savedValue.toString()}');
+    String? savedValue = prefs.getString(value);
+    log('getSavedString ${savedValue.toString()}');
     return savedValue;
   }
 
@@ -21,15 +23,23 @@ class CashHelper {
   static Future<dynamic> setJsonObject(String key, dynamic jsonObject) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(key, json.encode(jsonObject));
-     log('ddddddd${jsonObject.toString()}');
+    log('setJsonObject ${jsonObject.toString()}');
     return json.encode(jsonObject);
   }
 
-static  Future<dynamic> getJsonObject(String key) async {
+  static Future<dynamic> getJsonObject(String key) async {
     final prefs = await SharedPreferences.getInstance();
     final encodedJson = prefs.getString(key);
-    log('userData ${encodedJson.toString()}');
+    log('getJsonObject ${encodedJson.toString()}');
     return json.decode(encodedJson!);
+  }
+
+  static Future<dynamic> storeListInSharedPreferences(
+      List<UserModel> list) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = jsonEncode(list.map((item) => item.toJson()).toList());
+    prefs.setString('my_list', jsonString);
+    log('storeListInSharedPreferences ${prefs.getString("my_list")}');
   }
 
   static Future logout(context) async {
