@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../businessLogic_layer/auth/auth_cubit.dart';
+import '../../shared/components/apptext.dart';
 import 'movies_screen.dart';
 import 'welcome_screen.dart';
 import '../../shared/apputil.dart';
@@ -16,8 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
- String? userName;
-@override
+  String? userName;
+  @override
   void initState() {
     super.initState();
     context.read<AuthCubit>().getUsername().then((value) {
@@ -32,9 +33,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppUI.background,
       appBar: AppBar(
-        title:BlocBuilder<AuthCubit, AuthState>(
-           builder: (context, state) {
-            return Text("Hello, $userName");
+        title: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            return AppText(
+              "Hello, $userName",
+              color: Colors.white,
+            );
           },
         ),
         actions: [

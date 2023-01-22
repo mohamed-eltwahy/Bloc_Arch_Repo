@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'register_screen.dart';
 import '../../businessLogic_layer/auth/auth_cubit.dart';
@@ -43,9 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppUI.background,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40),
+                      borderRadius:  BorderRadius.only(
+                        topRight: Radius.circular(40.r),
+                        topLeft: Radius.circular(40.r),
                       ),
                     ),
                     child: Padding(
@@ -63,8 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(
-                                height: 50,
+                               SizedBox(
+                                height: 50.h,
                               ),
                               AppTextFormField(
                                 textColor: Colors.black,
@@ -85,8 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.grey,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 15,
+                               SizedBox(
+                                height: 15.h,
                               ),
                               AppTextFormField(
                                 hintText: 'password',
@@ -142,9 +143,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   : Center(
                                       child: Lottie.asset(
                                           'assets/lottie/loading.json',
-                                          height: 70)),
-                              const SizedBox(
-                                height: 20,
+                                          height: 70.h)),
+                               SizedBox(
+                                height: 20.h,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   AppText(
                                     "Don't have account ? ",
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -161,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     },
                                     child: AppText(
                                       'signUp',
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                     ),
                                   )

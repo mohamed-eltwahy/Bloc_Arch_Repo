@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'login_screen.dart';
 
@@ -45,9 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppUI.background,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        topLeft: Radius.circular(40),
+                      borderRadius:  BorderRadius.only(
+                        topRight: Radius.circular(40.r),
+                        topLeft: Radius.circular(40.r),
                       ),
                     ),
                     child: Padding(
@@ -62,11 +63,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               AppText(
                                 'signUp',
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(
-                                height: 50,
+                               SizedBox(
+                                height: 50.h,
                               ),
                               AppTextFormField(
                                 textColor: Colors.black,
@@ -87,8 +88,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Colors.grey,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 15,
+                               SizedBox(
+                                height: 15.h,
                               ),
                               AppTextFormField(
                                 hintText: 'password',
@@ -111,8 +112,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 suffixIcon: authCubit.signInVisibilityIcon,
                                 suffixColor: Colors.grey,
                               ),
-                              const SizedBox(
-                                height: 30,
+                               SizedBox(
+                                height: 30.h,
                               ),
                               state is! AuthStateLoading
                                   ? Padding(
@@ -143,9 +144,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   : Center(
                                       child: Lottie.asset(
                                           'assets/lottie/loading.json',
-                                          height: 70)),
-                              const SizedBox(
-                                height: 20,
+                                          height: 70.h)),
+                               SizedBox(
+                                height: 20.h,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   AppText(
                                     "have account ? ",
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -162,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     },
                                     child: AppText(
                                       'login',
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.white,
                                     ),
                                   )

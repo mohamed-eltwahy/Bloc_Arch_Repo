@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../businessLogic_layer/auth/auth_cubit.dart';
 import '../../../businessLogic_layer/films_cubit/films_cubit.dart';
 import '../../../shared/appui.dart';
@@ -27,19 +28,26 @@ class _MyAppState extends State<MyApp> {
           create: (context) => FilmsCubit(),
         ),
       ],
-      child: MaterialApp(
-          title: 'Flutter Task',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            // scaffoldBackgroundColor: AppUI.maincolors,
-            primarySwatch: AppUI.secondColor,
-            timePickerTheme: TimePickerThemeData(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              hourMinuteShape: const CircleBorder(),
-            ),
-          ),
-          home: const WelcomeScreen()),
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
+              title: 'Flutter Task',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                // scaffoldBackgroundColor: AppUI.maincolors,
+                primarySwatch: AppUI.secondColor,
+                timePickerTheme: TimePickerThemeData(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  hourMinuteShape: const CircleBorder(),
+                ),
+              ),
+              home: const WelcomeScreen());
+        },
+      ),
     );
   }
 }

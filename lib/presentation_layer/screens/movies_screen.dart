@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../businessLogic_layer/films_cubit/films_cubit.dart';
@@ -33,7 +34,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
         builder: (context, state) {
           if (state is FilmsLoading) {
             return Center(
-                child: Lottie.asset('assets/lottie/loading.json', height: 70));
+                child: Lottie.asset('assets/lottie/loading.json', height: 70.h));
           } else if (state is FilmsLoaded) {
             return GridView.builder(
                 itemCount: state.films.length,
