@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../businessLogic_layer/films_cubit/films_cubit.dart';
 import '../../shared/appui.dart';
+import '../../shared/cashHelper/cashe_posts.dart';
 import '../widgets/fil_item.dart';
 
 class MoviesScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
   void initState() {
     super.initState();
     context.read<FilmsCubit>().getallfilmsdata();
-    // FilmsRepo.fetchFilms();
+    savePosts(context.read<FilmsCubit>().filmsStored);
   }
 
   @override
