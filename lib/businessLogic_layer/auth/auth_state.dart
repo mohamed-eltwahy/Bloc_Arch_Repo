@@ -1,5 +1,9 @@
 class AuthInitial extends AuthState {}
 
+class AuthStateLoading extends AuthState {}
+class LoginVisibilityChangeState extends AuthState {}
+class SignInVisibilityChangeState extends AuthState {}
+
 class AuthState {
   final bool isLoggedIn;
   final String? error;

@@ -5,9 +5,6 @@ abstract class FilmsState {}
 
 class FilmsInitial extends FilmsState {}
 
-// class LoadingFilmsState extends FilmsState {}
-// class LoadedFilmsState extends FilmsState {}
-
 class FilmsLoading extends FilmsState {}
 
 class FilmsLoaded extends FilmsState {

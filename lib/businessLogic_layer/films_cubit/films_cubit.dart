@@ -17,7 +17,6 @@ class FilmsCubit extends Cubit<FilmsState> {
       emit(FilmsLoading());
       final films = await FilmsRepo.fetchFilmsRepo();
       emit(FilmsLoaded(films: films));
-      log('llllllll${films.toString()}');
       return films;
     } catch (e) {
       emit(FilmsError(message: e.toString()));

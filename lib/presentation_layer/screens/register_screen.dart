@@ -2,11 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/login_screen.dart';
+import 'login_screen.dart';
 
 import '../../businessLogic_layer/auth/auth_cubit.dart';
 import '../../businessLogic_layer/auth/auth_state.dart';
-import '../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../shared/appui.dart';
 import '../../shared/apputil.dart';
 import '../../shared/components/appbtn.dart';
@@ -104,18 +103,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     return null;
                                   }
                                 },
-                                // obscureText: authCubit.signUpPassword,
+                                obscureText: authCubit.signInVisibality,
                                 controller: authCubit.signUpPassword,
                                 validateState: true,
-                                // suffixIconOnTap:
-                                //     authCubit.loginChangeVisibility,
-                                // suffixIcon: authCubit.loginVisibilityIcon,
+                                suffixIconOnTap:
+                                    authCubit.signInChangeVisibility,
+                                suffixIcon: authCubit.signInVisibilityIcon,
                                 suffixColor: Colors.grey,
                               ),
                               const SizedBox(
                                 height: 30,
                               ),
-                              state is! LoginLoadingState
+                              state is! AuthStateLoading
                                   ? Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 100),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../models/films_model.dart';
 import '../services/films_services.dart';
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'register_screen.dart';
 import '../../businessLogic_layer/auth/auth_cubit.dart';
 import '../../businessLogic_layer/auth/auth_state.dart';
-import '../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../shared/appui.dart';
+import '../../shared/apputil.dart';
 import '../../shared/components/appbtn.dart';
 import '../../shared/components/apptext.dart';
 import '../../shared/components/apptextfield.dart';
@@ -100,18 +101,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                     return null;
                                   }
                                 },
-                                // obscureText: authCubit.loginVisibality,
+                                obscureText: authCubit.loginVisibality,
                                 controller: authCubit.loginPassword,
                                 validateState: true,
-                                // suffixIconOnTap:
-                                //     authCubit.loginChangeVisibility,
-                                // suffixIcon: authCubit.loginVisibilityIcon,
+                                suffixIconOnTap:
+                                    authCubit.loginChangeVisibility,
+                                suffixIcon: authCubit.loginVisibilityIcon,
                                 suffixColor: Colors.grey,
                               ),
                               const SizedBox(
                                 height: 30,
                               ),
-                              state is! LoginLoadingState
+                              state is! AuthStateLoading
                                   ? Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 100),
@@ -154,17 +155,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontSize: 16,
                                   ),
                                   TextButton(
-                                    onPressed: () async {
-                                      // UserModel.fromJson(json.decode(json.encode(UserModel(email:authCubit.loginEmail.text,password: authCubit.loginPassword.text,isLogined: true ).toJson())));
-
-                                      // await CashHelper.setJsonObject("signUpdata",jsonEncode(UserModel.fromJson(formData)));
-                                      // await  CashHelper.getJsonObject('signUpdata');
-                                      //     .then((value) {
-                                      //        CashHelper.getJsonObject('signUpdata');
-                                      //   // CashHelper.getSavedString("signUpdata", "");
-                                      //   // AppUtill.navigatToAndFinish(
-                                      //   //     context, const RegisterScreen());
-                                      // });
+                                    onPressed: () {
+                                      AppUtill.navigatToAndFinish(
+                                          context, const RegisterScreen());
                                     },
                                     child: AppText(
                                       'signUp',

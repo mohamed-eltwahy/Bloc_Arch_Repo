@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_page.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/login_screen.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/register_screen.dart';
+import 'home_page.dart';
+import 'login_screen.dart';
+import 'register_screen.dart';
 import '../../businessLogic_layer/auth/auth_cubit.dart';
 import '../../shared/appui.dart';
 import '../../shared/apputil.dart';

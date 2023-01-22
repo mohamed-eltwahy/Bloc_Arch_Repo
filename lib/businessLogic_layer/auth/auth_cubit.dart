@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:minapharm_pharmaceuticals_task/businessLogic_layer/auth/auth_state.dart';
+import 'auth_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../presentation_layer/screens/home_page.dart';
@@ -18,9 +18,30 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController signUpPassword = TextEditingController();
   final TextEditingController loginUsername = TextEditingController();
   final TextEditingController loginPassword = TextEditingController();
+  bool loginVisibality = true;
+  bool signInVisibality = true;
+  IconData loginVisibilityIcon = Icons.visibility_off_outlined;
+  IconData signInVisibilityIcon = Icons.visibility_off_outlined;
+
+  void loginChangeVisibility() {
+    loginVisibality = !loginVisibality;
+    loginVisibilityIcon = loginVisibality
+        ? Icons.visibility_off_outlined
+        : Icons.visibility_outlined;
+    emit(LoginVisibilityChangeState());
+  }
+
+  void signInChangeVisibility() {
+    signInVisibality = !signInVisibality;
+    signInVisibilityIcon = signInVisibality
+        ? Icons.visibility_off_outlined
+        : Icons.visibility_outlined;
+    emit(SignInVisibilityChangeState());
+  }
 
   Future register(
       String username, String password, BuildContext context) async {
+    emit(AuthStateLoading());
     final prefs = await SharedPreferences.getInstance();
     log('usersList${prefs.getStringList('users')}');
     if (prefs.getStringList('users')?.contains(username) == true) {
@@ -49,17 +70,19 @@ class AuthCubit extends Cubit<AuthState> {
               fontSize: 15)
           .then((value) {
         AppUtill.navigatToAndFinish(context, const HomePage());
+        signUpPassword.clear();
+        signUpUsername.clear();
       });
     }
   }
 
- Future<String> getUsername() async {
+  Future<String> getUsername() async {
     final prefs = await SharedPreferences.getInstance();
     return Future.value(prefs.getString('username') ?? '');
   }
 
-
   Future login(String username, String password, BuildContext context) async {
+    emit(AuthStateLoading());
     final prefs = await SharedPreferences.getInstance();
 
     final users = prefs.getStringList('users') ?? [];
@@ -76,6 +99,8 @@ class AuthCubit extends Cubit<AuthState> {
                 fontSize: 15)
             .then((value) {
           AppUtill.navigatToAndFinish(context, const HomePage());
+          loginUsername.clear();
+          loginPassword.clear();
         });
       } else {
         emit(state.copyWith(error: 'Incorrect password.'));
