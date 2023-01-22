@@ -1,15 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_page.dart';
-
+import '../../businessLogic_layer/auth/auth_cubit.dart';
+import '../../businessLogic_layer/auth/auth_state.dart';
 import '../../businessLogic_layer/login_cubit/login_cubit.dart';
-import '../../data_layer/models/user_model.dart';
 import '../../shared/appui.dart';
-import '../../shared/apputil.dart';
-import '../../shared/cashHelper/cash_helper.dart';
 import '../../shared/components/appbtn.dart';
 import '../../shared/components/apptext.dart';
 import '../../shared/components/apptextfield.dart';
@@ -27,10 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-            child: BlocConsumer<LoginCubit, LoginState>(
+            child: BlocConsumer<AuthCubit, AuthState>(
           listener: (BuildContext context, Object? state) {},
           builder: (BuildContext context, state) {
-            var authCubit = LoginCubit.get(context);
+            var authCubit = AuthCubit.get(context);
             return Container(
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
@@ -75,14 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context: context,
                                 validator: (vaule) {
                                   if (vaule!.isEmpty) {
-                                    return 'The email must not be empty ';
+                                    return 'username must not be empty ';
                                   } else {
                                     return null;
                                   }
                                 },
-                                hintText: 'email',
-                                textInputType: TextInputType.emailAddress,
-                                controller: authCubit.loginEmail,
+                                hintText: 'username',
+                                textInputType: TextInputType.name,
+                                controller: authCubit.loginUsername,
                                 // validateState: false,
                                 suffixWidget: const Icon(
                                   Icons.email_outlined,
@@ -93,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 15,
                               ),
                               AppTextFormField(
-                                hintText: 'pass',
+                                hintText: 'password',
                                 textColor: Colors.black,
                                 context: context,
                                 validator: (vaule) {
@@ -105,12 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     return null;
                                   }
                                 },
-                                obscureText: authCubit.loginVisibality,
+                                // obscureText: authCubit.loginVisibality,
                                 controller: authCubit.loginPassword,
                                 validateState: true,
-                                suffixIconOnTap:
-                                    authCubit.loginChangeVisibility,
-                                suffixIcon: authCubit.loginVisibilityIcon,
+                                // suffixIconOnTap:
+                                //     authCubit.loginChangeVisibility,
+                                // suffixIcon: authCubit.loginVisibilityIcon,
                                 suffixColor: Colors.grey,
                               ),
                               const SizedBox(
@@ -127,26 +122,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                               .loginFormKey.currentState!
                                               .validate()) {
                                             FocusScope.of(context).unfocus();
-
-                                            CashHelper.setSavedString(
-                                                authCubit.loginEmail.text,
-                                                'userName');
-                                            UserModel userModel = UserModel(
-                                                email:
-                                                    authCubit.loginEmail.text,
-                                                password: authCubit
-                                                    .loginPassword.text,
-                                                isLogined: true);
-                                            await CashHelper.setJsonObject(
-                                                    "signUpdata",
-                                                    userModel.toJson())
+                                            await authCubit
+                                                .login(
+                                                    authCubit
+                                                        .loginUsername.text,
+                                                    authCubit
+                                                        .loginPassword.text,
+                                                    context)
                                                 .then((value) {
-                                              authCubit.userList.add(userModel);
-                                              CashHelper
-                                                  .storeListInSharedPreferences(
-                                                      authCubit.userList);
-                                              AppUtill.navigatToAndFinish(
-                                                  context, const HomePage());
+                                              authCubit.getUsername();
                                             });
                                           }
                                         },

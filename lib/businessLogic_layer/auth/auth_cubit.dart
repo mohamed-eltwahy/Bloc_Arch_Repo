@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:minapharm_pharmaceuticals_task/businessLogic_layer/auth/auth_state.dart';
-import 'package:minapharm_pharmaceuticals_task/shared/flutterToast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../presentation_layer/screens/home_page.dart';
@@ -16,31 +13,62 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
   final signUpFormKey = GlobalKey<FormState>();
-  final TextEditingController signUpEmail = TextEditingController();
+  final loginFormKey = GlobalKey<FormState>();
+  final TextEditingController signUpUsername = TextEditingController();
   final TextEditingController signUpPassword = TextEditingController();
+  final TextEditingController loginUsername = TextEditingController();
+  final TextEditingController loginPassword = TextEditingController();
 
   Future register(
       String username, String password, BuildContext context) async {
-      final prefs = await SharedPreferences.getInstance();
-      log('usersList${prefs.getStringList('users')}');
-      if (prefs.getStringList('users')?.contains(username) == true) {
-        Fluttertoast.showToast(
-            msg: 'userName already registered.',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.TOP,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 15);
-        emit(state.copyWith(error: 'userName already registered.'));
-      } else {
-        final users = prefs.getStringList('users') ?? [];
-        users.add(username);
-        prefs.setStringList('users', users);
-        prefs.setString('username', username);
-        prefs.setString('password', password);
+    final prefs = await SharedPreferences.getInstance();
+    log('usersList${prefs.getStringList('users')}');
+    if (prefs.getStringList('users')?.contains(username) == true) {
+      Fluttertoast.showToast(
+          msg: 'userName already registered.',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 15);
+      emit(state.copyWith(error: 'userName already registered.'));
+    } else {
+      final users = prefs.getStringList('users') ?? [];
+      users.add(username);
+      prefs.setStringList('users', users);
+      prefs.setString('username', username);
+      prefs.setString('password', password);
+      prefs.setBool("isLoggedIn", true);
+      emit(state.copyWith(isLoggedIn: true));
+      Fluttertoast.showToast(
+              msg: 'account created successfully.',
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 15)
+          .then((value) {
+        AppUtill.navigatToAndFinish(context, const HomePage());
+      });
+    }
+  }
+
+ Future<String> getUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    return Future.value(prefs.getString('username') ?? '');
+  }
+
+
+  Future login(String username, String password, BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final users = prefs.getStringList('users') ?? [];
+    if (users.contains(username)) {
+      if (prefs.getString('password') == password) {
+        prefs.setBool("isLoggedIn", true);
         emit(state.copyWith(isLoggedIn: true));
         Fluttertoast.showToast(
-                msg: 'account created successfully.',
+                msg: 'login successfully.',
                 toastLength: Toast.LENGTH_LONG,
                 gravity: ToastGravity.BOTTOM,
                 backgroundColor: Colors.green,
@@ -49,34 +77,39 @@ class AuthCubit extends Cubit<AuthState> {
             .then((value) {
           AppUtill.navigatToAndFinish(context, const HomePage());
         });
-      }
-   
-  }
-
-  String? myString;
-  void loadString() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    myString = prefs.getString('username')!;
-    try {
-      AuthState authState = json.decode(myString!);
-      emit(authState);
-    } catch (e) {
-      log('errrorrr${e.toString()}');
-    }
-  }
-
-  Future<void> login(String username, String password) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    final users = prefs.getStringList('users') ?? [];
-    if (users.contains(username)) {
-      if (prefs.getString('password') == password) {
-        emit(state.copyWith(isLoggedIn: true));
       } else {
         emit(state.copyWith(error: 'Incorrect password.'));
+        Fluttertoast.showToast(
+            msg: 'Incorrect password.',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.TOP,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 15);
       }
     } else {
       emit(state.copyWith(error: 'Email not registered.'));
+      Fluttertoast.showToast(
+          msg: 'Email not registered.',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 15);
     }
+  }
+
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("isLoggedIn") ?? false;
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isLoggedIn", false);
+    // prefs.remove("username");
+    // prefs.remove("password");
+    // prefs.remove("users");
+    emit(state.copyWith(isLoggedIn: false));
   }
 }

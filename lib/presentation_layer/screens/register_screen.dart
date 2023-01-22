@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/home_page.dart';
 import 'package:minapharm_pharmaceuticals_task/presentation_layer/screens/login_screen.dart';
 
 import '../../businessLogic_layer/auth/auth_cubit.dart';
@@ -88,17 +86,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context: context,
                                 validator: (vaule) {
                                   if (vaule!.isEmpty) {
-                                    return 'The email must not be empty ';
+                                    return 'username must not be empty ';
                                   } else {
                                     return null;
                                   }
                                 },
-                                hintText: 'email',
-                                textInputType: TextInputType.emailAddress,
-                                controller: authCubit.signUpEmail,
+                                hintText: 'userName',
+                                textInputType: TextInputType.name,
+                                controller: authCubit.signUpUsername,
                                 // validateState: false,
                                 suffixWidget: const Icon(
-                                  Icons.email_outlined,
+                                  Icons.person,
                                   color: Colors.grey,
                                 ),
                               ),
@@ -106,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 height: 15,
                               ),
                               AppTextFormField(
-                                hintText: 'pass',
+                                hintText: 'password',
                                 textColor: Colors.black,
                                 context: context,
                                 validator: (vaule) {
@@ -142,12 +140,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             FocusScope.of(context).unfocus();
                                             await authCubit
                                                 .register(
-                                                    authCubit.signUpEmail.text,
+                                                    authCubit.signUpUsername.text,
                                                     authCubit
                                                         .signUpPassword.text,
                                                     context)
                                                 .then((value) {
-                                              authCubit.loadString();
+                                              authCubit.getUsername();
                                             });
                                           }
                                         },

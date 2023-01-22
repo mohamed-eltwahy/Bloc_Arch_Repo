@@ -1,6 +1,4 @@
-
 class AuthInitial extends AuthState {}
-
 
 class AuthState {
   final bool isLoggedIn;
@@ -11,16 +9,15 @@ class AuthState {
     this.error,
   });
 
-  AuthState copyWith({bool? isLoggedIn, String? error}) {
+  AuthState copyWith({
+    bool? isLoggedIn,
+    String? error,
+  }) {
     return AuthState(
-      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
-      error: error ?? this.error,
-    );
+        isLoggedIn: isLoggedIn ?? this.isLoggedIn,
+        error: error ?? this.error,
+        );
   }
 
-
-
   factory AuthState.initial() => AuthState();
-
-
 }
