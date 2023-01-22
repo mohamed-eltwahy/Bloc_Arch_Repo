@@ -1,12 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import '../../data_layer/models/films_model.dart';
 
 class FilmItem extends StatelessWidget {
-   final Filmography? listdata;
+  final Filmography? listdata;
 
-   const FilmItem({
+  const FilmItem({
     Key? key,
     this.listdata,
   }) : super(key: key);
@@ -28,7 +27,7 @@ class FilmItem extends StatelessWidget {
           color: Colors.black54,
           alignment: Alignment.bottomCenter,
           child: Text(
-            'iiiiiii',
+            listdata!.title!,
             style:
                 TextStyle(color: Colors.grey[400], fontWeight: FontWeight.bold),
             overflow: TextOverflow.ellipsis,
@@ -38,22 +37,15 @@ class FilmItem extends StatelessWidget {
         ),
         child: Container(
           color: Colors.grey[400],
-          child: Text(
-            'sssssiiiiiii',
-            style:
-                TextStyle(color: Colors.grey[400], fontWeight: FontWeight.bold),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          ),
-          // child:FadeInImage.assetNetwork(
-          //         width: double.infinity,
-          //         height: double.infinity,
-          //         placeholder: 'assets/images/loading.gif',
-          //         image:listdata!.image as String,
-          //         fit: BoxFit.cover,
-          //       ),
-              // : Image.asset('assets/images/notfound.jpg'),
+          child: listdata!.image != null
+              ? FadeInImage.assetNetwork(
+                  width: double.infinity,
+                  height: double.infinity,
+                  placeholder: 'assets/images/error.png',
+                  image: listdata!.image!.url!,
+                  fit: BoxFit.cover,
+                )
+              : Image.asset('assets/images/error.png'),
         ),
       ),
     );

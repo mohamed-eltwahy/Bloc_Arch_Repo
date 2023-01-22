@@ -12,12 +12,12 @@ class FilmsCubit extends Cubit<FilmsState> {
   FilmsCubit() : super(FilmsInitial());
   static FilmsCubit get(context) => BlocProvider.of(context);
 
-
   Future<void> getallfilmsdata() async {
     try {
       emit(FilmsLoading());
       final films = await FilmsRepo.fetchFilmsRepo();
       emit(FilmsLoaded(films: films));
+      log('llllllll${films.toString()}');
       return films;
     } catch (e) {
       emit(FilmsError(message: e.toString()));

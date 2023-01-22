@@ -33,7 +33,7 @@ class Base {
   String? type;
   List<String>? akas;
   String? id;
-  Image? image;
+  ImageModel? image;
   String? legacyNameText;
   String? name;
 
@@ -43,7 +43,7 @@ class Base {
     type = json['@type'];
     akas = json['akas'].cast<String>();
     id = json['id'];
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? ImageModel.fromJson(json['image']) : null;
     legacyNameText = json['legacyNameText'];
     name = json['name'];
   }
@@ -62,15 +62,15 @@ class Base {
   }
 }
 
-class Image {
+class ImageModel {
   int? height;
   String? id;
   String? url;
   int? width;
 
-  Image({height, id, url, width});
+  ImageModel({height, id, url, width});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  ImageModel.fromJson(Map<String, dynamic> json) {
     height = json['height'];
     id = json['id'];
     url = json['url'];
@@ -90,7 +90,7 @@ class Image {
 class Filmography {
   String? category;
   String? id;
-  Image? image;
+  ImageModel? image;
   String? status;
   String? title;
   String? titleType;
@@ -138,7 +138,7 @@ class Filmography {
   Filmography.fromJson(Map<String, dynamic> json) {
     category = json['category'];
     id = json['id'];
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? ImageModel.fromJson(json['image']) : null;
     status = json['status'];
     title = json['title'];
     titleType = json['titleType'];
@@ -239,7 +239,7 @@ class Episodes {
   List<String>? characters;
   List<Roles>? roles;
   String? id;
-  Image? image;
+  ImageModel? image;
   String? status;
   String? title;
   String? titleType;
@@ -280,7 +280,7 @@ class Episodes {
       });
     }
     id = json['id'];
-    image = json['image'] != null ? Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? ImageModel.fromJson(json['image']) : null;
     status = json['status'];
     title = json['title'];
     titleType = json['titleType'];

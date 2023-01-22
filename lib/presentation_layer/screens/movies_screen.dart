@@ -31,20 +31,34 @@ class _MoviesScreenState extends State<MoviesScreen> {
       body: BlocBuilder<FilmsCubit, FilmsState>(
         builder: (context, state) {
           if (state is FilmsLoading) {
-            return const Center(child: CircularProgressIndicator(color: Colors.white,));
+            return const Center(
+                child: CircularProgressIndicator(
+              color: Colors.white,
+            ));
           } else if (state is FilmsLoaded) {
-            return ListView.builder(
-              itemCount: state.films.length,
-              itemBuilder: (context, index) {
-                final film = state.films[index];
-                return ListTile(
-                  title: Text(film.as!,style: const TextStyle(color: Colors.red),),
-                  subtitle: Text(film.seriesEndYear.toString(),style: TextStyle(color: Colors.red),),
-                );
-              },
-            );
+            return GridView.builder(
+                itemCount: state.films.length,
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2 / 3,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1),
+                itemBuilder: (context, index) {
+                  return (index % 2 != 1)
+                      ? Transform.translate(
+                          offset: const Offset(0, 90),
+                          child: FilmItem(listdata: state.films[index]),
+                        )
+                      : FilmItem(listdata: state.films[index]);
+                });
           } else if (state is FilmsError) {
-            return Center(child: Text(state.message,style: TextStyle(color: Colors.red),));
+            return Center(
+                child: Text(
+              state.message,
+              style: TextStyle(color: Colors.red),
+            ));
           } else {
             return Container();
           }
