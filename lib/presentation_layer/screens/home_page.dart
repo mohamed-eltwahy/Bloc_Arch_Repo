@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title:BlocBuilder<AuthCubit, AuthState>(
            builder: (context, state) {
-            return Text("Welcome, $userName");
+            return Text("Hello, $userName");
           },
         ),
         actions: [

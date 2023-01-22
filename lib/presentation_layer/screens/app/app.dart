@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../businessLogic_layer/auth/auth_cubit.dart';
+import '../../../businessLogic_layer/films_cubit/films_cubit.dart';
 import '../../../businessLogic_layer/login_cubit/login_cubit.dart';
 import '../../../shared/appui.dart';
 import '../welcome_screen.dart';
@@ -25,6 +26,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(),
+        ),
+        BlocProvider<FilmsCubit>(
+          create: (context) => FilmsCubit(),
         ),
       ],
       child: MaterialApp(

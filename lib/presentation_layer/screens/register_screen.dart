@@ -21,18 +21,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  //   @override
-  // void initState() {
-  //   super.initState();
-  //   _getUsers();
-  // }
-
-  // Future<void> _getUsers() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     _users = prefs.getStringList('users') ?? [];
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
