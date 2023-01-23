@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 
@@ -20,7 +22,8 @@ class FilmsServices {
           options: buildCacheOptions(const Duration(minutes: 10),
               forceRefresh: true));
       return response.data['filmography'];
-    } catch (e) {
+    } on DioError catch (e) {
+      log(e.message);
       return Future.error('$e ', StackTrace.fromString(('trace error')));
     }
   }
