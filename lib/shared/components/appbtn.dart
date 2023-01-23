@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../appui.dart';
 
@@ -25,8 +26,8 @@ class AppButton extends StatelessWidget {
     return InkWell(
       onTap: onTap as void Function()?,
       child: Container(
-        width: width ?? 150,
-        height: hieght ?? 48,
+        width: width ?? 150.w,
+        height: hieght ?? 48.h,
         decoration: BoxDecoration(
           color: color??AppUI.maincolors ,
           border: border,
@@ -36,7 +37,7 @@ class AppButton extends StatelessWidget {
             child: title == null
                 ? titleWidget
                 : titleWidget ?? Text(
-              title!,style: TextStyle(fontSize: fontSize ?? 12,
+              title!,style: TextStyle(fontSize: fontSize ?? 12.sp,
               fontWeight: FontWeight.w400,
               color: titleColor,),
 

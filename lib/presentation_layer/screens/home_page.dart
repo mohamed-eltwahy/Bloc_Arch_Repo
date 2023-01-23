@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../businessLogic_layer/auth/auth_cubit.dart';
 import '../../shared/components/apptext.dart';
 import 'movies_screen.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         title: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             return AppText(
-              "Hello, $userName",
+              "Hello, $userName",fontSize: 18.sp,
               color: Colors.white,
             );
           },

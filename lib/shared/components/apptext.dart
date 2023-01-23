@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class AppText extends AutoSizeText {
@@ -21,8 +22,8 @@ class AppText extends AutoSizeText {
       color: color ??Colors.black,
       decoration: textDecoration ?? TextDecoration.none,
       fontWeight: fontWeight ?? FontWeight.w400,
-      fontSize: fontSize ?? 15,
-      height: height ?? 1.5,
+      fontSize: fontSize ?? 15.sp,
+      height: height ?? 1.5.h,
     ),
     textAlign: textAlign ?? TextAlign.center,
     maxLines: maxLines,
