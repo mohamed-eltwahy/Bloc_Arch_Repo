@@ -39,7 +39,13 @@ class FilmItem extends StatelessWidget {
         child: Container(
           color: Colors.grey[400],
           child: listdata!.image != null
-              ? Image.network(listdata!.image!.url!,width: double.infinity,height: double.infinity, fit: BoxFit.cover,)
+              ? FadeInImage.assetNetwork(
+                  width: double.infinity,
+                  height: double.infinity,
+                  placeholder: 'assets/images/error.png',
+                  image: listdata!.image!.url!,
+                  fit: BoxFit.cover,
+                )
               : Image.asset('assets/images/error.png'),
         ),
       ),
