@@ -10,13 +10,13 @@ class APIDioService {
     _connectivity = Connectivity();
   }
 
-  Future<dynamic> request(String method, String url, {Map<String, dynamic>? data}) async {
+  Future<dynamic> request(String method, String url, {Map<String, dynamic>? data,Map<String, dynamic>? header}) async {
     try {
       final connectivityResult = await _connectivity!.checkConnectivity();
       if (connectivityResult != ConnectivityResult.none) {
         final response = await _dio?.request(
           url,
-          options: Options(
+          options: Options(headers: header,
             method: method,
           ),
           data: data,
