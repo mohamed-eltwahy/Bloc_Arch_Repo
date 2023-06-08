@@ -9,18 +9,23 @@ import '../../shared/network/api_dio_services.dart';
 class FilmsServices {
   final APIDioService apiService = getIt<APIDioService>();
 
-  void _makeAPIRequest() async {
-    try {
-      final response =
-          await apiService.request('get', 'https://api.example.com/data');
+//  getallfilmsServices() async {
+//     try {
+//       final response = await apiService.request('get',
+//           'https://imdb8.p.rapidapi.com/actors/get-all-filmography?nconst=nm0001667',
+//           header: {
+//             'X-RapidAPI-Key':
+//                 'e71585032bmshd5966a5385a5c1dp1bed63jsn61f88daf108a',
+//             'X-RapidAPI-Host': 'imdb8.p.rapidapi.com',
+//           });
 
-      // Process the API response here
-      print(response);
-    } catch (error) {
-      // Handle error cases
-      print(error);
-    }
-  }
+//       // Process the API response here
+//       log(response);
+//     } catch (error) {
+//       // Handle error cases
+//       log(error.toString());
+//     }
+//   }
 
   static dynamic getallfilmsServices() async {
     try {
